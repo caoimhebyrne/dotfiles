@@ -1,0 +1,76 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Pink → orange. Pill username, heart accent, two lines.
+
+add_newline = true
+
+format = """
+$username\
+$directory\
+$git_branch\
+$git_status\
+$cmd_duration\
+$line_break\
+$character"""
+
+palette = 'pink_orange'
+
+[palettes.pink_orange]
+pink    = '#F72585'
+hotpink = '#FF4D8D'
+coral   = '#FF6B6B'
+orange  = '#FF8C42'
+amber   = '#FFA630'
+red     = '#FF3355'
+muted   = '#6E6A6C'
+
+# ── the pill ────────────────────────────────────────────────
+[username]
+show_always = true
+style_user = 'bg:pink fg:#FFFFFF bold'
+style_root = 'bg:pink fg:#FFFFFF bold'
+format = '[](fg:pink)[ ♥ $user ]($style)[](fg:pink)'
+
+# ── where you are ───────────────────────────────────────────
+[directory]
+style = 'fg:coral bold'
+format = ' [$path]($style)[$read_only]($read_only_style)'
+truncation_length = 3
+truncate_to_repo = true
+truncation_symbol = ''
+# Abbreviate everything above the repo root to one letter: ~/D/E/essential-panels
+fish_style_pwd_dir_length = 1
+read_only = ' '
+read_only_style = 'fg:amber'
+
+# ── git ─────────────────────────────────────────────────────
+[git_branch]
+symbol = ' '
+style = 'fg:orange bold'
+format = ' [$symbol](fg:amber)[$branch]($style)'
+
+[git_status]
+style = 'fg:coral'
+format = '([ $all_status$ahead_behind]($style))'
+conflicted = '~$count'
+ahead      = '⇡$count'
+behind     = '⇣$count'
+diverged   = '⇕$ahead_count/$behind_count'
+untracked  = '?$count'
+stashed    = '*$count'
+modified   = '!$count'
+staged     = '+$count'
+renamed    = '»$count'
+deleted    = '✘$count'
+
+# ── only speaks up when something was slow ──────────────────
+[cmd_duration]
+min_time = 2000
+style = 'fg:muted'
+format = ' [ $duration]($style)'
+
+# ── prompt char ─────────────────────────────────────────────
+[character]
+success_symbol = '[✿](bold fg:hotpink)'
+error_symbol = '[✿](bold fg:red)'
+vicmd_symbol = '[❀](bold fg:amber)'
