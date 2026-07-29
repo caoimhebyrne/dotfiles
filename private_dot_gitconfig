@@ -1,0 +1,31 @@
+[user]
+	name = Caoimhe
+	email = 71222289+caoimhebyrne@users.noreply.github.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAC7x/VwdKsWmnwI6OoNwzwc5tcP6Qp5A1k84xucwYvL
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[commit]
+	gpgsign = true
+
+[core]
+	autocrlf = input
+
+[column]
+	ui = auto
+
+[branch]
+	sort = -committerdate
+
+[merge]
+	conflictstyle = zdiff3
+
+[init]
+	defaultBranch = main
+
+[includeIf "gitdir:~/Development/Spark/"]
+	path = "~/Development/Spark/.gitconfig"
