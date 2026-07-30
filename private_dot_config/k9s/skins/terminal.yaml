@@ -1,0 +1,150 @@
+# -----------------------------------------------------------------------------
+# terminal
+#
+# Follows the terminal's own colours instead of baking in a palette, so it
+# tracks light/dark automatically.
+#
+# Only two kinds of value appear below:
+#   default                        the terminal's own foreground / background
+#   maroon green olive navy purple teal    ANSI palette slots 1-6
+#
+# Those six names are tcell's, not literal colours: they are slots 1-6, which
+# every scheme fills with its normal red, green, yellow, blue, magenta, cyan.
+# black and white are slots 0 and 15, the darkest and lightest a scheme has;
+# they are only ever used as text on a coloured background, never against
+# default. Slots 7-14 are avoided because base16 schemes reuse several of them
+# for greys.
+#
+# Requires TCELL_TRUECOLOR=disable. Without it k9s converts every colour to
+# fixed RGB (internal/config/color.go, Color.Color) and the skin stops
+# tracking the terminal. The k9s wrapper function in .zshrc sets it.
+# -----------------------------------------------------------------------------
+
+k9s:
+  body:
+    fgColor: default
+    bgColor: default
+    logoColor: teal
+    logoColorMsg: default
+    logoColorInfo: green
+    logoColorWarn: olive
+    logoColorError: maroon
+
+  prompt:
+    fgColor: default
+    bgColor: default
+    suggestColor: purple
+    border:
+      command: teal
+      default: navy
+
+  help:
+    fgColor: default
+    bgColor: default
+    sectionColor: teal
+    keyColor: purple
+    numKeyColor: olive
+
+  info:
+    fgColor: default
+    sectionColor: teal
+    k9sRevColor: green
+    cpuColor: navy
+    memColor: purple
+
+  frame:
+    title:
+      fgColor: purple
+      bgColor: default
+      highlightColor: olive
+      counterColor: teal
+      filterColor: green
+    border:
+      fgColor: teal
+      focusColor: purple
+    menu:
+      fgColor: default
+      keyColor: purple
+      numKeyColor: olive
+    crumbs:
+      fgColor: white
+      bgColor: navy
+      activeColor: purple
+    status:
+      newColor: teal
+      modifyColor: purple
+      addColor: green
+      pendingColor: olive
+      errorColor: maroon
+      highlightColor: teal
+      killColor: purple
+      completedColor: default
+
+  views:
+    table:
+      fgColor: default
+      bgColor: default
+      cursorFgColor: white
+      cursorBgColor: navy
+      markColor: olive
+      header:
+        fgColor: teal
+        bgColor: default
+        sorterColor: olive
+        selectedSortColumnColor: purple
+
+    xray:
+      fgColor: default
+      bgColor: default
+      cursorColor: navy
+      cursorTextColor: white
+      graphicColor: teal
+
+    charts:
+      bgColor: default
+      dialBgColor: default
+      chartBgColor: default
+      focusFgColor: white
+      focusBgColor: navy
+      defaultDialColors:
+        - green
+        - maroon
+      defaultChartColors:
+        - green
+        - maroon
+      resourceColors:
+        cpu:
+          - navy
+          - teal
+        mem:
+          - purple
+          - olive
+
+    yaml:
+      keyColor: teal
+      colonColor: default
+      valueColor: default
+
+    picker:
+      mainColor: default
+      focusColor: teal
+      shortcutColor: purple
+
+    logs:
+      fgColor: default
+      bgColor: default
+      indicator:
+        fgColor: default
+        bgColor: default
+        toggleOnColor: green
+        toggleOffColor: maroon
+
+  dialog:
+    fgColor: default
+    bgColor: default
+    buttonFgColor: white
+    buttonBgColor: navy
+    buttonFocusFgColor: white
+    buttonFocusBgColor: purple
+    labelFgColor: teal
+    fieldFgColor: default

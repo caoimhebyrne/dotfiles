@@ -1,0 +1,6 @@
+# k9s rewrites these on exit (active namespace, last view, favorites), so they
+# are state rather than config. Keeps `chezmoi add -r ~/.config/k9s` honest.
+.config/k9s/clusters
+.config/k9s/screen-dumps
+.config/k9s/benchmarks
+.config/k9s/k9s.log

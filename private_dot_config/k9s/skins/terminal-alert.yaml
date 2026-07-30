@@ -1,0 +1,136 @@
+# -----------------------------------------------------------------------------
+# terminal-alert
+#
+# terminal.yaml with the frame turned red. Attached to the prod context via
+# clusters/<cluster>/<context>/config.yaml so it is obvious at a glance which
+# cluster you are in. Same rules as terminal.yaml: default plus ANSI slots 1-6.
+# -----------------------------------------------------------------------------
+
+k9s:
+  body:
+    fgColor: default
+    bgColor: default
+    logoColor: maroon
+    logoColorMsg: default
+    logoColorInfo: green
+    logoColorWarn: olive
+    logoColorError: maroon
+
+  prompt:
+    fgColor: default
+    bgColor: default
+    suggestColor: purple
+    border:
+      command: maroon
+      default: maroon
+
+  help:
+    fgColor: default
+    bgColor: default
+    sectionColor: maroon
+    keyColor: purple
+    numKeyColor: olive
+
+  info:
+    fgColor: default
+    sectionColor: maroon
+    k9sRevColor: green
+    cpuColor: navy
+    memColor: purple
+
+  frame:
+    title:
+      fgColor: maroon
+      bgColor: default
+      highlightColor: olive
+      counterColor: maroon
+      filterColor: green
+    border:
+      fgColor: maroon
+      focusColor: olive
+    menu:
+      fgColor: default
+      keyColor: purple
+      numKeyColor: olive
+    crumbs:
+      fgColor: white
+      bgColor: maroon
+      activeColor: purple
+    status:
+      newColor: teal
+      modifyColor: purple
+      addColor: green
+      pendingColor: olive
+      errorColor: maroon
+      highlightColor: olive
+      killColor: purple
+      completedColor: default
+
+  views:
+    table:
+      fgColor: default
+      bgColor: default
+      cursorFgColor: white
+      cursorBgColor: maroon
+      markColor: olive
+      header:
+        fgColor: maroon
+        bgColor: default
+        sorterColor: olive
+        selectedSortColumnColor: purple
+
+    xray:
+      fgColor: default
+      bgColor: default
+      cursorColor: maroon
+      cursorTextColor: white
+      graphicColor: maroon
+
+    charts:
+      bgColor: default
+      dialBgColor: default
+      chartBgColor: default
+      focusFgColor: white
+      focusBgColor: maroon
+      defaultDialColors:
+        - green
+        - maroon
+      defaultChartColors:
+        - green
+        - maroon
+      resourceColors:
+        cpu:
+          - navy
+          - teal
+        mem:
+          - purple
+          - olive
+
+    yaml:
+      keyColor: maroon
+      colonColor: default
+      valueColor: default
+
+    picker:
+      mainColor: default
+      focusColor: maroon
+      shortcutColor: purple
+
+    logs:
+      fgColor: default
+      bgColor: default
+      indicator:
+        fgColor: default
+        bgColor: default
+        toggleOnColor: green
+        toggleOffColor: maroon
+
+  dialog:
+    fgColor: default
+    bgColor: default
+    buttonFgColor: white
+    buttonBgColor: navy
+    buttonFocusFgColor: white
+    buttonFocusBgColor: maroon
+    labelFgColor: maroon
+    fieldFgColor: default

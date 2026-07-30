@@ -22,6 +22,17 @@ compinit
 # auto suggestions :)
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# k9s
+# Pin the config dir so it is ~/.config/k9s on Linux and macOS alike; without
+# this macOS resolves XDG_CONFIG_HOME to ~/Library/Application Support.
+export K9S_CONFIG_DIR="$HOME/.config/k9s"
+# k9s converts every skin colour to fixed RGB, which pins the theme to whatever
+# the skin hardcodes. Disabling tcell's truecolor makes it emit palette indices
+# instead, so the skin renders in the terminal's own colours and follows
+# light/dark. Scoped to k9s so other tcell apps keep truecolor.
+k9s() { TCELL_TRUECOLOR=disable command k9s "$@" }
+# k9s end
+
 eval "$(atuin init zsh --disable-up-arrow)"
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"

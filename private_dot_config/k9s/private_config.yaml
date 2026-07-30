@@ -1,0 +1,67 @@
+k9s:
+  # Keep describe/yaml views live instead of showing a snapshot from when you
+  # opened them. Worth having while watching a rollout.
+  liveViewAutoRefresh: true
+  refreshRate: 2
+  # Down from the 2m default: a call that hasn't answered in 30s means the VPN
+  # is down, and you want to hear about that rather than sit on a hung view.
+  apiServerTimeout: 30s
+  maxConnRetry: 5
+  readOnly: false
+  # Ctrl-C no longer quits. Use :q.
+  noExitOnCtrlC: true
+  portForwardAddress: localhost
+  # Skip the GitHub release check on startup; brew handles upgrades.
+  skipLatestRevCheck: true
+  disablePodCounting: false
+  defaultView: ""
+
+  ui:
+    # Off so terminal text selection keeps working without shift-drag.
+    enableMouse: false
+    headless: false
+    logoless: false
+    crumbsless: false
+    splashless: true
+    # Reload skins, aliases, hotkeys and plugins from disk while running, so
+    # `chezmoi apply` lands without a restart.
+    reactive: true
+    noIcons: false
+    skin: terminal
+    # Logs, yaml and describe open full screen.
+    defaultsToFullScreen: true
+    useFullGVRTitle: false
+    invert: false
+
+  # Used by the node shell (featureGates.nodeShell, set per context). netshoot
+  # carries dig, curl, tcpdump and ss; busybox does not.
+  shellPod:
+    image: nicolaka/netshoot:latest
+    namespace: default
+    tty: true
+    limits:
+      cpu: 100m
+      memory: 100Mi
+
+  imageScans:
+    enable: false
+    exclusions:
+      namespaces: []
+      labels: {}
+
+  logger:
+    tail: 200
+    buffer: 10000
+    sinceSeconds: -1
+    textWrap: true
+    disableAutoscroll: false
+    columnLock: false
+    showTime: false
+
+  thresholds:
+    cpu:
+      critical: 90
+      warn: 70
+    memory:
+      critical: 90
+      warn: 70
