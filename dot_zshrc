@@ -40,3 +40,9 @@ k9s() { TCELL_TRUECOLOR=disable command k9s "$@" }
 eval "$(atuin init zsh --disable-up-arrow)"
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
+
+bindkey "^[[1;5C" forward-word  # ctrl + ->
+bindkey "^[[1;5D" backward-word # ctrl + <-
+bindkey '^[[H' beginning-of-line # replace ctrl + a cursor start of line
+bindkey '^[[F' end-of-line # replace ctrl + e cursor end of line
+
