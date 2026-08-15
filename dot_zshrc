@@ -46,3 +46,5 @@ bindkey "^[[1;5D" backward-word # ctrl + <-
 bindkey '^[[H' beginning-of-line # replace ctrl + a cursor start of line
 bindkey '^[[F' end-of-line # replace ctrl + e cursor end of line
 
+. "$HOME/.cargo/env"
+
