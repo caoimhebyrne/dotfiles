@@ -1,14 +1,30 @@
+{{- /* Homebrew lives in a different place on each platform: /opt/homebrew on
+Apple Silicon, /usr/local on Intel macs, and a shared prefix on Linux. Resolve
+it once here and reuse it below. */ -}}
+{{- $brewPrefix := "/opt/homebrew" -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{- $brewPrefix = "/home/linuxbrew/.linuxbrew" -}}
+{{- else if eq .chezmoi.arch "amd64" -}}
+{{- $brewPrefix = "/usr/local" -}}
+{{- end -}}
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
-export PATH="/opt/homebrew/share/google-cloud-sdk/bin:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+# Only on the machines that actually have the SDK installed, so the other one
+# does not carry a dead PATH entry.
+[[ -d "{{ $brewPrefix }}/share/google-cloud-sdk/bin" ]] && export PATH="{{ $brewPrefix }}/share/google-cloud-sdk/bin:$PATH"
+
+eval "$({{ $brewPrefix }}/bin/brew shellenv zsh)"
 
 alias ls="eza --group-directories-first --icons=auto --color=auto"
 alias cat="bat"
 
 # pnpm
-export PNPM_HOME="/Users/caoimhe/Library/pnpm"
+{{ if eq .chezmoi.os "darwin" -}}
+export PNPM_HOME="$HOME/Library/pnpm"
+{{- else -}}
+export PNPM_HOME="$HOME/.local/share/pnpm"
+{{- end }}
 case ":$PATH:" in
   *":$PNPM_HOME/bin:"*) ;;
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
@@ -16,15 +32,20 @@ esac
 # pnpm end
 
 # completions
-# FPATH="$(brew --prefix zsh-autosuggestions):$FPATH"
-FPATH="/usr/share/zsh-autosuggestions:$FPATH"
+{{ if eq .chezmoi.os "darwin" -}}
+{{- /* brew keeps the plugin under its own prefix; Linux gets it from the
+distro package instead. */ -}}
+zsh_autosuggestions_dir="{{ $brewPrefix }}/share/zsh-autosuggestions"
+{{- else -}}
+zsh_autosuggestions_dir="/usr/share/zsh-autosuggestions"
+{{- end }}
+FPATH="$zsh_autosuggestions_dir:$FPATH"
 autoload -Uz compinit
 compinit
 # completions end
 
 # auto suggestions :)
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-# source "$(brew --prefix zsh-autosuggestions)"/zsh-autosuggestions.zsh
+source "$zsh_autosuggestions_dir/zsh-autosuggestions.zsh"
 
 # k9s
 # Pin the config dir so it is ~/.config/k9s on Linux and macOS alike; without
@@ -47,4 +68,3 @@ bindkey '^[[H' beginning-of-line # replace ctrl + a cursor start of line
 bindkey '^[[F' end-of-line # replace ctrl + e cursor end of line
 
 . "$HOME/.cargo/env"
-
